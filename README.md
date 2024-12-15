@@ -45,11 +45,11 @@ The errors occur due to configuration mismatches or missing dependencies in a Ty
 1. **Missing Jest and React Types:**
    Testing utilities like Jest and React require type definitions for TypeScript to understand testing-specific functions and JSX elements.
 
-2. **Cannot Use JSX Without '--jsx':**
-   TypeScript requires the `jsx` option in `tsconfig.json` to handle JSX syntax. Without it, the compiler cannot process files with JSX code.
+2. **Cannot Use JSX Without '--jsx' or 'import' statement:**
+   TypeScript requires `tsconfig.json` to handle JSX syntax. Without it, the compiler cannot process files with JSX code.
 
 3. **Missing or Incorrect `web-vitals` API Usage:**
-   The `web-vitals` library has been updated, and its API has changed. Older methods like `getCLS` are no longer available, causing errors when used in the `reportWebVitals.ts` file.
+   The `web-vitals` library has been updated, and its API has changed.
 
 4. **Cannot Find Module './logo.svg':**
    TypeScript does not recognize non-code assets like `.svg` files without additional type declarations. This is why it cannot resolve the `logo.svg` import.
