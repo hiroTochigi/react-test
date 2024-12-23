@@ -16,10 +16,14 @@ describe("MultipleForm component", () => {
     expect(lastNameInput).toBeInTheDocument();
     expect(fullNameDisplay).toHaveTextContent("Full Name:");
     expect(submitButton).toBeInTheDocument();
+    expect(submitButton).toBeDisabled();
 
     // Simulate user input
     fireEvent.change(firstNameInput, { target: { value: "John" } });
     fireEvent.change(lastNameInput, { target: { value: "Doe" } });
+
+    // Check if submit button is enabled
+    expect(submitButton).not.toBeDisabled();
 
     // Simulate form submission
     fireEvent.click(submitButton);
@@ -62,5 +66,30 @@ describe("MultipleForm component", () => {
     // This is required to clean up the mock and restore the original implementation
     // of preventDefault, ensuring it does not affect other tests.
     preventDefault.mockRestore();
+  });
+
+  test("submit button is disabled until both fields are filled", () => {
+    render(<MultipleForm />);
+
+    const firstNameInput = screen.getByLabelText(/first name/i);
+    const lastNameInput = screen.getByLabelText(/last name/i);
+    const submitButton = screen.getByText(/submit/i);
+
+    // Check initial state
+    expect(submitButton).toBeDisabled();
+
+    // Simulate user input for first name only
+    fireEvent.change(firstNameInput, { target: { value: "John" } });
+    expect(submitButton).toBeDisabled();
+
+    // Simulate user input for last name only
+    fireEvent.change(firstNameInput, { target: { value: "" } });
+    fireEvent.change(lastNameInput, { target: { value: "Doe" } });
+    expect(submitButton).toBeDisabled();
+
+    // Simulate user input for both fields
+    fireEvent.change(firstNameInput, { target: { value: "John" } });
+    fireEvent.change(lastNameInput, { target: { value: "Doe" } });
+    expect(submitButton).not.toBeDisabled();
   });
 });

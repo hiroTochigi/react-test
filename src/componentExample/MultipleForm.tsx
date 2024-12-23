@@ -40,7 +40,9 @@ const MultipleForm = () => {
             onChange={handleChange}
           />
         </div>
-        <button type="submit">Submit</button>
+        <button type="submit" disabled={!name.firstName || !name.lastName}>
+          Submit
+        </button>
       </form>
       <h2>Full Name: {fullName}</h2>
     </div>
